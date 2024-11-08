@@ -1,13 +1,15 @@
 import { GetServerSideProps } from "next";
-import client from "../../lib/apollo-client";
-import { ApolloProvider } from "@apollo/client";
+import client, { GET_CHARACTERS } from "../../lib/apollo-client";
 import CharacterList from "@/components/CharacterList";
 import { CharactersPageProps } from "@/components/CharacterList";
 import { Container, Heading } from "@chakra-ui/react";
-import { GET_CHARACTERS } from "./[page]";
 import Pagination from "@/components/Pagination";
+import Layout from "@/components/PagesLayout";
+import { parseCookies } from "nookies";
+import { useAuth } from "@/lib/hooks";
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { isAuth } = useAuth(context);
   const { data } = await client.query({
     query: GET_CHARACTERS,
     variables: { page: 1 },
@@ -18,6 +20,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       characters: data.characters.results,
       totalPages: data.characters.info.pages,
       currentPage: 1,
+      isAuth,
     },
   };
 };
@@ -26,9 +29,14 @@ export default function CharactersPage({
   characters,
   currentPage,
   totalPages,
-}: CharactersPageProps & { currentPage: number; totalPages: number }) {
+  isAuth,
+}: CharactersPageProps & {
+  currentPage: number;
+  totalPages: number;
+  isAuth: boolean;
+}) {
   return (
-    <ApolloProvider client={client}>
+    <Layout isAuth={isAuth}>
       <Container maxW="container.xl">
         <Heading size="4xl">Characters (Page {currentPage})</Heading>
         <CharacterList characters={characters} />
@@ -39,6 +47,6 @@ export default function CharactersPage({
           hasNextPage={true}
         />
       </Container>
-    </ApolloProvider>
+    </Layout>
   );
 }

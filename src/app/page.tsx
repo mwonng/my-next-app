@@ -1,8 +1,7 @@
 // import Image from "next/image";
 // import styles from "./page.module.css";
 import { Button } from "@/components/ui/button";
-import { Center, Container, Card } from "@chakra-ui/react";
-import { Avatar } from "@/components/ui/avatar";
+import { Center, Container, Card, Image } from "@chakra-ui/react";
 
 export default function Home() {
   return (
@@ -10,11 +9,10 @@ export default function Home() {
       <Center>
         <Card.Root width="320px">
           <Card.Body gap="2">
-            <Avatar
-              src="https://picsum.photos/200/300"
-              name="Demo"
-              size="lg"
-              shape="rounded"
+            <Image
+              src="https://picsum.photos/500/500"
+              alt="Demo"
+              rounded={"md"}
             />
             <Card.Title mt="2">Demo Next.js</Card.Title>
             <Card.Description>
