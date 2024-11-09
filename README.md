@@ -8,29 +8,20 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# or any package management tool
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project intro
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/profile`, this page is protected page and only accessible when you have `username` and `jobTitle` in cookies
+- `/login`, this is the page allow you to simulate login but without password, this can add `username` and `jobTitle` to cookies
+- `/characters`, this page is for list all characters from public API with pagination on the bottom of the page. This is also a protected page.
+- `/characters/2`, this page is for list paginated characters from public API by page number.
 
-## Learn More
+## How to persist data
 
-To learn more about Next.js, take a look at the following resources:
+There are a lot of way to persist data for `username` and `jobTitle` locally. It call be `sessionStorage` or `localStorage` or `cookies` etc..
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+I choose cookie as my localStorage as it able to be encrypted via SSL, consider it simulate login so it more suitable by using cookies.

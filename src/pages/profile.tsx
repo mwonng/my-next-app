@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/navigation";
 import nookies from "nookies";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -32,20 +32,28 @@ export default function ProtectedPage({
   const [username, setUsername] = useState(initialUsername);
   const [jobTitle, setJobTitle] = useState(initialJobTitle);
 
-  const handleJobTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setJobTitle(e.target.value);
-    nookies.set(null, "jobTitle", e.target.value, { path: "/" });
-  };
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-    nookies.set(null, "username", e.target.value, { path: "/" });
-  };
-  const handleLogout = (e: React.MouseEvent) => {
+  const handleJobTitleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setJobTitle(e.target.value);
+      nookies.set(null, "jobTitle", e.target.value, { path: "/" });
+    },
+    []
+  );
+
+  const handleUsernameChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUsername(e.target.value);
+      nookies.set(null, "username", e.target.value, { path: "/" });
+    },
+    []
+  );
+
+  const handleLogout = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     nookies.destroy(null, "username");
     nookies.destroy(null, "jobTitle");
     router.push("/login");
-  };
+  }, []);
 
   useEffect(() => {
     if (!username || !jobTitle) {
@@ -59,7 +67,7 @@ export default function ProtectedPage({
   }, [jobTitle, router, username]);
 
   return (
-    <Layout isAuth={isAuth}>
+    <Layout isAuth={isAuth} username={username} jobTitle={jobTitle}>
       <Center maxW="container.md" py={10}>
         <Stack>
           <Heading size="2xl" textAlign="center">

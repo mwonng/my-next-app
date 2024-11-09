@@ -1,52 +1,75 @@
-import { Box, Flex, Link } from "@chakra-ui/react";
+import { Box, Container, Flex, Link, Text } from "@chakra-ui/react";
 
-const Nav = ({ isAuth }: { isAuth: boolean }) => {
+interface NavProps {
+  isAuth: boolean;
+  username?: string;
+  jobTitle?: string;
+}
+const Nav = ({ isAuth, username, jobTitle }: NavProps) => {
   return (
     <Box as="nav" bg="gray.800" px={4} py={3}>
-      <Flex
-        maxW="container.xl"
-        mx="auto"
-        align="center"
-        justify="flex-end"
-        gap={6}
-      >
-        <Link
-          href="/"
-          color="white"
-          _hover={{ color: "blue.200" }}
-          fontWeight="medium"
+      <Container>
+        <Flex
+          maxW="container.xl"
+          mx="auto"
+          align="center"
+          justify="flex-start"
+          gap={[2, 4]}
+          flexWrap={{ base: "wrap", md: "nowrap" }}
         >
-          Home
-        </Link>
-        {isAuth && (
           <Link
-            href="/characters"
+            href="/"
             color="white"
             _hover={{ color: "blue.200" }}
             fontWeight="medium"
           >
-            Characters
+            Home
           </Link>
-        )}
-        <Link
-          href={"/information"}
-          color="white"
-          _hover={{ color: "blue.200" }}
-          fontWeight="medium"
-        >
-          Information
-        </Link>
-        {!isAuth && (
+          {isAuth && (
+            <Link
+              href="/characters"
+              color="white"
+              _hover={{ color: "blue.200" }}
+              fontWeight="medium"
+            >
+              Characters
+            </Link>
+          )}
           <Link
-            href={"/login"}
+            href={"/profile"}
             color="white"
             _hover={{ color: "blue.200" }}
             fontWeight="medium"
           >
-            Login
+            Profile
           </Link>
-        )}
-      </Flex>
+          {!isAuth && (
+            <Link
+              href={"/login"}
+              color="white"
+              _hover={{ color: "blue.200" }}
+              fontWeight="medium"
+            >
+              Login
+            </Link>
+          )}
+          {isAuth && (
+            <Box
+              display={{ base: "block", md: "flex" }}
+              justifyContent="flex-end"
+              color="teal.50"
+              fontSize="sm"
+              mt={{ base: 0, md: "auto" }}
+              ml={{ base: 0, md: "auto" }}
+              width={{ base: "full", md: "auto" }}
+            >
+              <Text>
+                Welcome, {username} - {jobTitle}
+              </Text>
+            </Box>
+          )}
+        </Flex>
+      </Container>
     </Box>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 import { useState, FormEvent } from "react";
-import { Box, Button, Input, Stack, Heading } from "@chakra-ui/react";
+import { Box, Button, Input, Stack, Heading, Link } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import { toaster } from "@/components/ui/toaster";
 
@@ -27,7 +27,7 @@ export default function LoginPage(): JSX.Element {
     nookies.set(null, "username", username, { path: "/" });
     nookies.set(null, "jobTitle", jobTitle, { path: "/" });
 
-    router.push("/info");
+    router.push("/profile");
   };
 
   return (
@@ -67,9 +67,18 @@ export default function LoginPage(): JSX.Element {
               />
             </Field>
 
-            <Button type="submit" colorScheme="teal" width="full" mt={4}>
+            <Button type="submit" width="full" mt={4}>
               Login
             </Button>
+            <Link
+              href="/"
+              colorPalette={"teal"}
+              variant={"underline"}
+              width="full"
+              mt={4}
+            >
+              Back to Home
+            </Link>
           </Stack>
         </form>
       </Box>

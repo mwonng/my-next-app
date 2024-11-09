@@ -1,5 +1,6 @@
 import { HStack, Button, Box } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 type PaginationProps = {
   currentPage: number;
@@ -11,15 +12,15 @@ type PaginationProps = {
 export const Pagination = ({ currentPage, pages }: PaginationProps) => {
   const router = useRouter();
 
-  const totalPages = pages; // You might want to get this from your API
+  const totalPages = pages;
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = useCallback((newPage: number) => {
     if (newPage === 1) {
       router.push("/characters");
     } else {
       router.push(`/characters/${newPage}`);
     }
-  };
+  }, []);
 
   // Generate array of page numbers to show
   const getPageNumbers = () => {
