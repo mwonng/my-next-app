@@ -9,20 +9,32 @@ import { parseCookies } from "nookies";
 import { useAuth } from "@/lib/hooks";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { isAuth } = useAuth(context);
-  const { data } = await client.query({
-    query: GET_CHARACTERS,
-    variables: { page: 1 },
-  });
+  try {
+    const { isAuth } = useAuth(context);
+    const { data } = await client.query({
+      query: GET_CHARACTERS,
+      variables: { page: 1 },
+    });
 
-  return {
-    props: {
-      characters: data.characters.results,
-      totalPages: data.characters.info.pages,
-      currentPage: 1,
-      isAuth,
-    },
-  };
+    return {
+      props: {
+        characters: data.characters.results,
+        totalPages: data.characters.info.pages,
+        currentPage: 1,
+        isAuth,
+      },
+    };
+  } catch (error) {
+    // Redirect to error page with the error message
+    return {
+      redirect: {
+        destination: `/error?message=${encodeURIComponent(
+          error instanceof Error ? error.message : "An error occurred"
+        )}`,
+        permanent: false,
+      },
+    };
+  }
 };
 
 export default function CharactersPage({
