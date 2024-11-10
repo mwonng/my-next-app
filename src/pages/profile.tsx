@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   Center,
+  Container,
   Heading,
   Input,
   Stack,
@@ -68,20 +69,14 @@ export default function ProtectedPage({
 
   return (
     <Layout isAuth={isAuth} username={username} jobTitle={jobTitle}>
-      <Center maxW="container.md" py={10}>
-        <Stack>
-          <Heading size="2xl" textAlign="center">
-            This is a protected page.
-          </Heading>
+      <Container pt={8}>
+        <Stack px={4} textAlign={{ base: "left", md: "center" }}>
+          <Heading size="2xl">This is a protected page.</Heading>
           <Text>
             You can only view this page if you have username and job title in
           </Text>
-          <Box>
-            <Text mt={4}>Welcome, {username}</Text>
-            <Text mt={2}>Your job title is: {jobTitle}</Text>
-            <Text color="gray.600"></Text>
-          </Box>
-
+        </Stack>
+        <Center maxW="container.md" py={10}>
           <Card.Root width="320px">
             <Card.Body gap="2">
               <Field label="Update Username">
@@ -117,8 +112,8 @@ export default function ProtectedPage({
               </Box>
             </Card.Body>
           </Card.Root>
-        </Stack>
-      </Center>
+        </Center>
+      </Container>
     </Layout>
   );
 }

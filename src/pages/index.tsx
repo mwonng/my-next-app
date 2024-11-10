@@ -6,8 +6,8 @@ import { Center, Container, Card, Image, Link } from "@chakra-ui/react";
 
 interface HomePageProps {
   isAuth: boolean;
-  username?: string | null;
-  jobTitle?: string | null;
+  username?: string;
+  jobTitle?: string;
 }
 
 export default function Home(props: HomePageProps) {

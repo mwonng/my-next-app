@@ -25,3 +25,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 There are a lot of way to persist data for `username` and `jobTitle` locally. It call be `sessionStorage` or `localStorage` or `cookies` etc..
 
 I choose cookie as my localStorage as it able to be encrypted via SSL, consider it simulate login so it more suitable by using cookies.
+
+## Assumptions & constrains
+
+- **test coverage**, due to time, test coverage is not fully covered, it should able to test via jest, testing-library and some other UI test, e.g. storybook.
+- **UX not fully tested**, due to time, UX are not fully covered, e.g. form validation, error handle,
+- **error handling**, only implement if graphQL is is not able to fetch and get some errors, it will redirect to a error page.

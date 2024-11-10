@@ -45,7 +45,7 @@ export const Pagination = ({ currentPage, pages }: PaginationProps) => {
       <HStack justify="center">
         {currentPage > 1 && (
           <Button onClick={() => handlePageChange(currentPage - 1)}>
-            Previous
+            Prev
           </Button>
         )}
 
