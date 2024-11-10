@@ -32,6 +32,7 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <Box
+      as="main"
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -45,17 +46,21 @@ export default function LoginPage(): JSX.Element {
         boxShadow="lg"
         bg="white"
         borderRadius="md"
+        role="region"
+        aria-labelledby="login-heading"
       >
-        <Heading textAlign="center" mb={6} fontSize="2xl">
+        <Heading id="login-heading" textAlign="center" mb={6} fontSize="2xl">
           Login
         </Heading>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} aria-label="Login form">
           <Stack>
             <Field label="Username">
               <Input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                aria-required="true"
+                autoComplete="username"
               />
             </Field>
 
@@ -64,10 +69,17 @@ export default function LoginPage(): JSX.Element {
                 type="text"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
+                aria-required="true"
+                autoComplete="organization-title"
               />
             </Field>
 
-            <Button type="submit" width="full" mt={4}>
+            <Button
+              type="submit"
+              width="full"
+              mt={4}
+              aria-label="Submit login form"
+            >
               Login
             </Button>
             <Link
@@ -76,6 +88,7 @@ export default function LoginPage(): JSX.Element {
               variant={"underline"}
               width="full"
               mt={4}
+              aria-label="Return to home page"
             >
               Back to Home
             </Link>

@@ -72,43 +72,58 @@ export default function ProtectedPage({
 
   return (
     <Layout isAuth={isAuth} username={username} jobTitle={jobTitle}>
-      <Container pt={8}>
+      <Container pt={8} as="main">
         <Stack px={4} textAlign={{ base: "left", md: "center" }}>
-          <Heading size="2xl">This is a protected page.</Heading>
+          <Heading size="2xl" as="h1">
+            This is a protected page.
+          </Heading>
           <Text>
             You can only view this page if you have username and job title in
+            your cookies.
           </Text>
         </Stack>
         <Center maxW="container.md" py={10}>
-          <Card.Root width="320px">
+          <Card.Root
+            width="320px"
+            as="form"
+            role="form"
+            aria-label="Profile Update Form"
+          >
             <Card.Body gap="2">
               <Field label="Update Username">
                 <Input
                   id="username"
+                  name="username"
                   value={username}
                   onChange={handleUsernameChange}
                   placeholder="Enter new username"
+                  aria-label="Update username"
+                  aria-required="true"
                 />
               </Field>
 
               <Field label="Update Job Title">
                 <Input
                   id="jobTitle"
+                  name="jobTitle"
                   value={jobTitle}
                   onChange={handleJobTitleChange}
                   placeholder="Enter new job title"
+                  aria-label="Update job title"
+                  aria-required="true"
                 />
               </Field>
 
               <Box my={"2"}>
                 <Button
-                  type="submit"
+                  type="button"
                   colorPalette="red"
                   variant="solid"
                   size="lg"
                   w="full"
                   my={"2"}
                   onClick={handleLogout}
+                  aria-label="Logout from your account"
                 >
                   Logout
                 </Button>

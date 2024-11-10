@@ -44,18 +44,26 @@ export const Pagination = ({ currentPage, pages }: PaginationProps) => {
   };
 
   return (
-    <Box my={8}>
+    <Box my={8} as="nav" aria-label="Pagination">
       <HStack justify="center">
         {currentPage > 1 && (
-          <Button onClick={() => handlePageChange(currentPage - 1)}>
+          <Button
+            onClick={() => handlePageChange(currentPage - 1)}
+            aria-label="Go to previous page"
+          >
             Prev
           </Button>
         )}
 
         {currentPage > 3 && (
           <>
-            <Button onClick={() => handlePageChange(1)}>1</Button>
-            {currentPage > 4 && <Box>...</Box>}
+            <Button
+              onClick={() => handlePageChange(1)}
+              aria-label="Go to first page"
+            >
+              1
+            </Button>
+            {currentPage > 4 && <Box aria-hidden="true">...</Box>}
           </>
         )}
 
@@ -65,6 +73,8 @@ export const Pagination = ({ currentPage, pages }: PaginationProps) => {
             variant={pageNum === currentPage ? "subtle" : "solid"}
             onClick={() => handlePageChange(pageNum)}
             disabled={pageNum === currentPage}
+            aria-label={`Page ${pageNum}`}
+            aria-current={pageNum === currentPage ? "page" : undefined}
           >
             {pageNum}
           </Button>
@@ -72,15 +82,21 @@ export const Pagination = ({ currentPage, pages }: PaginationProps) => {
 
         {currentPage < totalPages - 2 && (
           <>
-            {currentPage < totalPages - 3 && <Box>...</Box>}
-            <Button onClick={() => handlePageChange(totalPages)}>
+            {currentPage < totalPages - 3 && <Box aria-hidden="true">...</Box>}
+            <Button
+              onClick={() => handlePageChange(totalPages)}
+              aria-label={`Go to last page, page ${totalPages}`}
+            >
               {totalPages}
             </Button>
           </>
         )}
 
         {currentPage < totalPages && (
-          <Button onClick={() => handlePageChange(currentPage + 1)}>
+          <Button
+            onClick={() => handlePageChange(currentPage + 1)}
+            aria-label="Go to next page"
+          >
             Next
           </Button>
         )}

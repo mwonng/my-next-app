@@ -9,6 +9,10 @@ export function CharactersPage(
     totalPages: number;
   }
 ) {
+  if (props.characters.length === 0) {
+    return <div>No characters found</div>;
+  }
+
   return (
     <Container maxW="container.xl">
       <Heading size="4xl" py={4}>
