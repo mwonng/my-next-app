@@ -1,5 +1,4 @@
-"use client";
-import { Box, Text, Image, Stack, Skeleton } from "@chakra-ui/react";
+import { Box, Text, Image, Stack } from "@chakra-ui/react";
 import {
   DialogBody,
   DialogCloseTrigger,
@@ -56,6 +55,8 @@ const CharacterList = ({ characters }: CharactersPageProps) => {
                   src={character.image}
                   alt={`${character.name} character portrait`}
                   boxSize="100px"
+                  borderRadius="md"
+                  loading="lazy"
                 />
                 <Box as="article">
                   <Text as="h2" fontWeight="bold">
@@ -76,26 +77,13 @@ const CharacterList = ({ characters }: CharactersPageProps) => {
           <DialogBody pb={6}>
             <Stack align="center">
               <Box position="relative" width="200px" height="200px">
-                <Skeleton
-                  loading={true}
+                <Image
+                  src={selectedCharacter?.image}
+                  alt={`${selectedCharacter?.name} detailed portrait`}
+                  boxSize="200px"
                   borderRadius="lg"
-                  position="absolute"
-                  top="0"
-                  left="0"
-                  width="100%"
-                  height="100%"
-                >
-                  <Image
-                    src={selectedCharacter?.image}
-                    alt={`${selectedCharacter?.name} detailed portrait`}
-                    boxSize="200px"
-                    borderRadius="lg"
-                    onLoad={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.parentElement?.setAttribute("data-loaded", "true");
-                    }}
-                  />
-                </Skeleton>
+                  loading="lazy"
+                />
               </Box>
               <Text fontSize="md">
                 Gender: {selectedCharacter?.gender || "Not specified"}
