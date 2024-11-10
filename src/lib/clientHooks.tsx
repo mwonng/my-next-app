@@ -1,4 +1,4 @@
-import nookies, { parseCookies } from "nookies";
+import nookies from "nookies";
 import { useEffect, useState } from "react";
 
 interface AuthData {

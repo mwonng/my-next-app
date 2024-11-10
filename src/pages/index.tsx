@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
-import { useAuth } from "@/lib/hooks";
+import { getAuthServerSide } from "@/lib/dataFetch";
 import Layout from "@/components/PagesLayout";
-import { Button } from "@/components/ui/button";
+import { Button } from "@chakra-ui/react";
 import { Center, Container, Card, Image, Link } from "@chakra-ui/react";
 
 interface HomePageProps {
@@ -42,7 +42,7 @@ export default function Home(props: HomePageProps) {
   );
 }
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { isAuth, username, jobTitle } = useAuth(context);
+  const { isAuth, username, jobTitle } = await getAuthServerSide(context);
 
   return {
     props: {

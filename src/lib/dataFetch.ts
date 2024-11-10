@@ -1,10 +1,31 @@
+import { GetServerSidePropsContext } from "next";
 import client, { GET_CHARACTERS } from "./apollo-client";
-import { useAuth } from "./hooks";
+import { parseCookies } from "nookies";
 
-export const fetchCharacters = async (context?: any) => {
+export interface AuthData {
+  username: string | undefined;
+  jobTitle: string | undefined;
+  isAuth: boolean;
+}
+
+export const getAuthServerSide = (
+  context: GetServerSidePropsContext
+): AuthData => {
+  const cookies = parseCookies(context);
+  const username = cookies.username;
+  const jobTitle = cookies.jobTitle;
+
+  return {
+    username,
+    jobTitle,
+    isAuth: !!username && !!jobTitle,
+  };
+};
+
+export const fetchCharacters = async (context: GetServerSidePropsContext) => {
   try {
-    const page = parseInt(context.params?.page as string) || 1;
-    const { isAuth, username, jobTitle } = useAuth(context);
+    const page = Number(context.params?.page) || 1;
+    const { isAuth, username, jobTitle } = await getAuthServerSide(context);
 
     const { data } = await client.query({
       query: GET_CHARACTERS,

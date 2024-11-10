@@ -14,13 +14,16 @@ export const Pagination = ({ currentPage, pages }: PaginationProps) => {
 
   const totalPages = pages;
 
-  const handlePageChange = useCallback((newPage: number) => {
-    if (newPage === 1) {
-      router.push("/characters");
-    } else {
-      router.push(`/characters/${newPage}`);
-    }
-  }, []);
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      if (newPage === 1) {
+        router.push("/characters");
+      } else {
+        router.push(`/characters/${newPage}`);
+      }
+    },
+    [router]
+  );
 
   // Generate array of page numbers to show
   const getPageNumbers = () => {

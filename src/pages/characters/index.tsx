@@ -1,9 +1,9 @@
 import { GetServerSideProps } from "next";
 import { CharactersPageProps } from "@/components/CharacterList";
 import Layout from "@/components/PagesLayout";
-import { fetchCharacters } from "@/lib/dataFetch";
+import { AuthData, fetchCharacters } from "@/lib/dataFetch";
 import { CharactersPage } from "@/components/CharactersPage";
-import { AuthData, useAuthGuard } from "@/lib/hooks";
+import { useAuthGuard } from "@/lib/hooks";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await fetchCharacters(context);

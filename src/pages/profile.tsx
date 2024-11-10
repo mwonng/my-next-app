@@ -16,7 +16,7 @@ import {
 import { Field } from "@/components/ui/field";
 import { toaster } from "@/components/ui/toaster";
 import Layout from "@/components/PagesLayout";
-import { useAuth } from "@/lib/hooks";
+import { getAuthServerSide } from "@/lib/dataFetch";
 
 interface ProtectedPageProps {
   username: string;
@@ -119,7 +119,7 @@ export default function ProtectedPage({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { isAuth, username, jobTitle } = useAuth(context);
+  const { isAuth, username, jobTitle } = await getAuthServerSide(context);
 
   if (!username || !jobTitle) {
     return {
