@@ -49,12 +49,15 @@ export default function ProtectedPage({
     []
   );
 
-  const handleLogout = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    nookies.destroy(null, "username");
-    nookies.destroy(null, "jobTitle");
-    router.push("/login");
-  }, []);
+  const handleLogout = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      nookies.destroy(null, "username");
+      nookies.destroy(null, "jobTitle");
+      router.push("/login");
+    },
+    [router]
+  );
 
   useEffect(() => {
     if (!username || !jobTitle) {
